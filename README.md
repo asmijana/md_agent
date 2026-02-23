@@ -10,15 +10,14 @@ This repo is designed to be a **GitHub-friendly demo**: it produces trajectories
 ## Example MD simulation  
 ![Demo](/demo.gif)  
 <img src="assets/demo.gif" width="800" />   
----
 
 ## What it does   
 
 Given a natural-language prompt like:   
 
-> “Load POSCAR, set PBC, freeze bottom Au layers, attach calculator, run MD, write outputs into `output_dir`, convert trajectory to XYZ”   
+> “Load POSCAR, set PBC, freeze bottom Au layers, attach calculator, run MD, write outputs into output_dir, convert trajectory to XYZ”   
 
-…the agent will select tools and arguments at runtime and return **verbatim tool outputs** (what actually happened)   
+…the agent will select tools and arguments at runtime, return your requested outputs, and report **the tools it used**   
 
 The tool kit includes ones to load structure, set PBC, freeze layers, create directories, attach fairchem calculation, attach EMT calculator, run MD, write output files, and export trajectory files to xyz format. This can be expanded by the user     
 
@@ -42,8 +41,8 @@ ollama serve
 ```
 ### Running the agent   
 The agent requires two inputs:   
-- Initial structure: provided as a POSCAR file in the folder all_input_structs/   
-- Prompt: provided in the prompts.md file under the corresponding prompt-id   
+- Initial structure: provided as a POSCAR file in the folder `all_input_structs/`   
+- Prompt: provided in the `prompts.md` file under the corresponding prompt-id   
 
 An example prompt following a prompt-id:   
 > au_md_smoke     
@@ -57,12 +56,13 @@ python agent.py #default: prompts.md and au_md_smoke
 ```
 ### Outputs
 By default, the workflow writes into output_dir/:
-- md.traj: ASE trajectory   
-- md.log: text log of energies   
-- md.xyz: trajectory in extended xyz format
-- final.extxyz: final structure in extended xyz format
-- POSCAR_final: final structure in POSCAR/VASP format   
+- `md.traj`: ASE trajectory   
+- `md.log`: text log of energies   
+- `md.xyz`: trajectory in extended xyz format
+- `final.extxyz`: final structure in extended xyz format
+- `POSCAR_final`: final structure in POSCAR/VASP format   
 
+---
 ## Repo structure
 
 ```bash
