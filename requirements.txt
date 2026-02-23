@@ -1,0 +1,7 @@
+langchain
+langchain-ollama
+pydantic
+ase
+numpy
+fairchem-core
+huggingface_hub
