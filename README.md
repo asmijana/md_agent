@@ -19,27 +19,24 @@ Given a natural-language prompt like:
 > “Load POSCAR, set PBC, freeze bottom Au layers, attach calculator, run MD, write outputs into `output_dir`, convert trajectory to XYZ”   
 
 …the agent will select tools and arguments at runtime and return **verbatim tool outputs** (what actually happened)   
-The tool kit includes ones to load structure, set PBC, freeze layers, create directories, attach fairchem calculation, attach EMT calculator, run MD, write output files, and export trajectory files to xyz format. This can be expanded by the user as well     
+
+The tool kit includes ones to load structure, set PBC, freeze layers, create directories, attach fairchem calculation, attach EMT calculator, run MD, write output files, and export trajectory files to xyz format. This can be expanded by the user     
 
 ---
 ## Requirements   
-Core: langchain, langchain-ollama, pydantic, ase, numpy    
 Note: I used ollama to access the LLM. I used a local LLM: llama3.1:8b via Ollama   
 You can download Ollama at ollama.com/download, use ```ollama pull llama3.1:8b``` to get the llama3.1:8b model, and use ```ollama serve``` to run the framework.  
 
+Core: langchain, langchain-ollama, pydantic, ase, numpy    
 Optional: fairchem-core, huggingface_hub   
 Note: The optional dependencies require auth+access to gated repo. See https://github.com/facebookresearch/fairchem for more information      
-All listed in requirements.txt   
 
 ## Install   
-### Create and activate a virtual environment   
+### Activate a virtual environment and install dependencies   
 ```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install -U pip
-```
-### Install dependencies   
-```bash
 pip install -r requirements.txt
 ollama serve
 ```
@@ -49,8 +46,9 @@ The agent requires two inputs:
 - Prompt: provided in the prompts.md file under the corresponding prompt-id   
 
 An example prompt following a prompt-id:   
-## au_md_smoke   
-Load ./all_input_structs/POSCAR_Au_only, set PBC to [True, True, True] with at least 40 Å in z, freeze bottom 2 Au layers, make sure that all elements are grouped together. Create a directory called output_dir in the current directory if there is no such directory named output_dir in the current directory. attach the EMT calculator by running the tool t_attach_emt(), run 200 steps MD at 500 K in steps of 10, and write outputs, including the trajectory(.traj), log (.log), and other final structure files (.extxyz) in the directory called output_dir. Make sure that one of the outputs is the trajectory file (.traj) converted to a multi-frame .xyz file.   
+> au_md_smoke     
+> Load ./all_input_structs/POSCAR_Au_only, set PBC to [True, True, True] with at least 40 Å in z, freeze bottom 2 Au layers, make sure that all elements are grouped together. Create a directory called output_dir in the current directory if there is no such directory named output_dir in the current directory. attach the EMT calculator by running the tool t_attach_emt(), run 200 steps MD at 500 K in steps of 10, and write outputs, including the trajectory(.traj), log (.log), and other final structure files (.extxyz) in the directory called output_dir. Make sure that one of the outputs is the trajectory file (.traj) converted to a multi-frame .xyz file.   
+
 Then run    
 ```bash
 python agent.py --prompts prompts.md --prompt-id au_md_smoke
